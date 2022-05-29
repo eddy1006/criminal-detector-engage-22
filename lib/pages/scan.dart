@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:face_net_authentication/locator.dart';
 import 'package:face_net_authentication/pages/models/user.model.dart';
-import 'package:face_net_authentication/pages/widgets/auth_button.dart';
+import 'package:face_net_authentication/pages/widgets/capture_button.dart';
 import 'package:face_net_authentication/pages/widgets/camera_detection_preview.dart';
 import 'package:face_net_authentication/pages/widgets/camera_header.dart';
-import 'package:face_net_authentication/pages/widgets/signin_form.dart';
+import 'package:face_net_authentication/pages/widgets/criminal_details.dart';
 import 'package:face_net_authentication/pages/widgets/single_picture.dart';
 import 'package:face_net_authentication/services/camera.service.dart';
 import 'package:face_net_authentication/services/ml_service.dart';
@@ -12,14 +12,14 @@ import 'package:face_net_authentication/services/face_detector_service.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+class Scan extends StatefulWidget {
+  const Scan({Key? key}) : super(key: key);
 
   @override
-  SignInState createState() => SignInState();
+  ScanState createState() => ScanState();
 }
 
-class SignInState extends State<SignIn> {
+class ScanState extends State<Scan> {
   CameraService _cameraService = locator<CameraService>();
   FaceDetectorService _faceDetectorService = locator<FaceDetectorService>();
   MLService _mlService = locator<MLService>();
@@ -113,7 +113,7 @@ class SignInState extends State<SignIn> {
     Widget header = CameraHeader("SCAN", onBackPressed: _onBackPressed);
     Widget body = getBodyWidget();
     Widget? fab;
-    if (!_isPictureTaken) fab = AuthButton(onTap: onTap);
+    if (!_isPictureTaken) fab = CaptureButton(onTap: onTap);
 
     return Scaffold(
       key: scaffoldKey,
@@ -134,5 +134,5 @@ class SignInState extends State<SignIn> {
             style: TextStyle(fontSize: 20),
           ),
         )
-      : SignInSheet(user: user);
+      : CriminalDetails(user: user);
 }

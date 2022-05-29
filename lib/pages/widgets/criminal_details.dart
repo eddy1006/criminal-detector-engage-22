@@ -1,39 +1,14 @@
 import 'package:face_net_authentication/locator.dart';
 import 'package:face_net_authentication/pages/models/user.model.dart';
-import 'package:face_net_authentication/pages/profile.dart';
 import 'package:face_net_authentication/pages/widgets/app_button.dart';
 import 'package:face_net_authentication/pages/widgets/app_text_field.dart';
 import 'package:face_net_authentication/services/camera.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
-class SignInSheet extends StatelessWidget {
-  SignInSheet({Key? key, required this.user}) : super(key: key);
+class CriminalDetails extends StatelessWidget {
+  CriminalDetails({Key? key, required this.user}) : super(key: key);
   final User user;
-
-  final _passwordController = TextEditingController();
-  final _cameraService = locator<CameraService>();
-
-  Future _signIn(context, user) async {
-    if (user.password == _passwordController.text) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => Profile(
-                    user.user,
-                    imagePath: _cameraService.imagePath!,
-                  )));
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Text('Wrong password!'),
-          );
-        },
-      );
-    }
-  }
 
   _callNumber() async {
     const number = '08592119XXXX'; //set the number here

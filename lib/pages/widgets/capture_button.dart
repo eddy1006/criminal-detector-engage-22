@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AuthButton extends StatelessWidget {
-  const AuthButton({Key? key, required this.onTap}) : super(key: key);
+class CaptureButton extends StatelessWidget {
+  const CaptureButton({Key? key, required this.onTap}) : super(key: key);
   final void Function() onTap;
 
   @override

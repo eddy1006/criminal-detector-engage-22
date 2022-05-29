@@ -1,7 +1,6 @@
 import 'package:face_net_authentication/locator.dart';
 import 'package:face_net_authentication/pages/db/databse_helper.dart';
 import 'package:face_net_authentication/pages/models/user.model.dart';
-import 'package:face_net_authentication/pages/profile.dart';
 import 'package:face_net_authentication/pages/widgets/app_button.dart';
 import 'package:face_net_authentication/services/camera.service.dart';
 import 'package:face_net_authentication/services/ml_service.dart';
@@ -11,8 +10,8 @@ import 'package:image/image.dart';
 import '../home.dart';
 import 'app_text_field.dart';
 
-class AuthActionButton extends StatefulWidget {
-  AuthActionButton(
+class CaptureActionButton extends StatefulWidget {
+  CaptureActionButton(
       {Key? key,
       required this.onPressed,
       required this.isLogin,
@@ -21,10 +20,10 @@ class AuthActionButton extends StatefulWidget {
   final bool isLogin;
   final Function reload;
   @override
-  _AuthActionButtonState createState() => _AuthActionButtonState();
+  _CaptureActionButtonState createState() => _CaptureActionButtonState();
 }
 
-class _AuthActionButtonState extends State<AuthActionButton> {
+class _CaptureActionButtonState extends State<CaptureActionButton> {
   final MLService _mlService = locator<MLService>();
   final CameraService _cameraService = locator<CameraService>();
 
@@ -55,30 +54,11 @@ class _AuthActionButtonState extends State<AuthActionButton> {
     );
     await _databaseHelper.insert(userToSave);
     this._mlService.setPredictedData(null);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => MyHomePage(),settings: RouteSettings(arguments: true)));
-  }
-
-  Future _signIn(context) async {
-    String password = _ageTextEditingController.text;
-    if (this.predictedUser!.age == password) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => Profile(
-                    this.predictedUser!.user,
-                    imagePath: _cameraService.imagePath!,
-                  )));
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Text('Wrong password!'),
-          );
-        },
-      );
-    }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => MyHomePage(),
+            settings: RouteSettings(arguments: true)));
   }
 
   Future<User?> _predictUser() async {
@@ -191,37 +171,25 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                 SizedBox(height: 10),
                 !widget.isLogin
                     ? AppTextField(
-                        labelText:
-                            "Describe threat level",
+                        labelText: "Describe threat level",
                         controller: _threatTextEditingController,
                       )
                     : Container(),
                 SizedBox(height: 10),
                 Divider(),
                 SizedBox(height: 10),
-                widget.isLogin && predictedUser != null
+                !widget.isLogin
                     ? AppButton(
-                        text: 'SCAN',
+                        text: 'ADD',
                         onPressed: () async {
-                          _signIn(context);
+                          await _signUp(context);
                         },
                         icon: Icon(
-                          Icons.camera_alt,
+                          Icons.person_add,
                           color: Colors.white,
                         ),
                       )
-                    : !widget.isLogin
-                        ? AppButton(
-                            text: 'ADD',
-                            onPressed: () async {
-                              await _signUp(context);
-                            },
-                            icon: Icon(
-                              Icons.person_add,
-                              color: Colors.white,
-                            ),
-                          )
-                        : Container(),
+                    : Container(),
               ],
             ),
           ),

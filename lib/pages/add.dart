@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'package:face_net_authentication/locator.dart';
 import 'package:face_net_authentication/pages/widgets/FacePainter.dart';
-import 'package:face_net_authentication/pages/widgets/auth-action-button.dart';
+import 'package:face_net_authentication/pages/widgets/capture-action-button.dart';
 import 'package:face_net_authentication/pages/widgets/camera_header.dart';
 import 'package:face_net_authentication/services/camera.service.dart';
 import 'package:face_net_authentication/services/ml_service.dart';
@@ -12,14 +12,14 @@ import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:flutter/material.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
+class Add extends StatefulWidget {
+  const Add({Key? key}) : super(key: key);
 
   @override
-  SignUpState createState() => SignUpState();
+  AddState createState() => AddState();
 }
 
-class SignUpState extends State<SignUp> {
+class AddState extends State<Add> {
   String? imagePath;
   Face? faceDetected;
   Size? imageSize;
@@ -99,7 +99,9 @@ class SignUpState extends State<SignUp> {
           await _faceDetectorService.detectFacesFromImage(image);
 
           if (_faceDetectorService.faces.isNotEmpty) {
-            setState(() { faceDetected = _faceDetectorService.faces[0]; });
+            setState(() {
+              faceDetected = _faceDetectorService.faces[0];
+            });
             if (_saving) {
               _mlService.setCurrentPrediction(image, faceDetected);
               setState(() {
@@ -202,7 +204,7 @@ class SignUpState extends State<SignUp> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: !_bottomSheetVisible
-            ? AuthActionButton(
+            ? CaptureActionButton(
                 onPressed: onShot,
                 isLogin: false,
                 reload: _reload,

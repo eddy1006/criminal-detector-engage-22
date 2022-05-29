@@ -1,8 +1,7 @@
-import 'package:face_net_authentication/constants/constants.dart';
 import 'package:face_net_authentication/locator.dart';
 import 'package:face_net_authentication/pages/db/databse_helper.dart';
-import 'package:face_net_authentication/pages/sign-in.dart';
-import 'package:face_net_authentication/pages/sign-up.dart';
+import 'package:face_net_authentication/pages/scan.dart';
+import 'package:face_net_authentication/pages/add.dart';
 import 'package:face_net_authentication/services/camera.service.dart';
 import 'package:face_net_authentication/services/ml_service.dart';
 import 'package:face_net_authentication/services/face_detector_service.dart';
@@ -35,10 +34,6 @@ class _MyHomePageState extends State<MyHomePage> {
     _mlKitService.initialize();
     setState(() => loading = false);
   }
-
-  void _launchURL() async => await canLaunch(Constants.githubURL)
-      ? await launch(Constants.githubURL)
-      : throw 'Could not launch ${Constants.githubURL}';
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (BuildContext context) => SignIn(),
+                                builder: (BuildContext context) => Scan(),
                               ),
                             );
                           },
@@ -151,53 +146,56 @@ class _MyHomePageState extends State<MyHomePage> {
                         SizedBox(
                           height: 10,
                         ),
-                        isAdmin == true ? InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (BuildContext context) => SignUp(),
+                        isAdmin == true
+                            ? InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) => Add(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color(0xFF0F0BDB),
+                                    boxShadow: <BoxShadow>[
+                                      BoxShadow(
+                                        color: Colors.blue.withOpacity(0.1),
+                                        blurRadius: 1,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 14, horizontal: 16),
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'ADD',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Icon(Icons.person_add,
+                                          color: Colors.white)
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : SizedBox(
+                                height: 20,
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                child: Divider(
+                                  thickness: 2,
+                                ),
                               ),
-                            );
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Color(0xFF0F0BDB),
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: Colors.blue.withOpacity(0.1),
-                                  blurRadius: 1,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(
-                                vertical: 14, horizontal: 16),
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'ADD',
-                                  style: TextStyle(color: Colors.white),
-                                ), 
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Icon(Icons.person_add, color: Colors.white)
-                              ],
-                            ),
-                          ),
-                        ) :
-                        SizedBox(
-                          height: 20,
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: Divider(
-                            thickness: 2,
-                          ),
-                        ),
                       ],
                     )
                   ],
