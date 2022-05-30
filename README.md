@@ -9,4 +9,5 @@ The app is divided into two parts the admin side and the normal user side.<br><b
 <strong>General User</strong> :- The general user can directly use the "Continue to app" button and they will be redirected to the home page where they can use the 
 "Scan" button to scan the face of that person who is suspecious to them. If the face of that person will be present in the db all the appropiate details will be displayed
 otherwise "Person has no criminal history" will be shown.<br>
-<p align="center"><img src = "WhatsApp Image 2022-05-30 at 10.00.19 AM.jpeg" height=400 /> </p>
+<p align="center"><img src = "WhatsApp Image 2022-05-30 at 10.00.19 AM.jpeg" height=350 /> &ensp;<img src="WhatsApp Image 2022-05-30 at 10.00.20 AM.jpeg" height=350 /> </p>
+<strong>Admin</strong> :- 
