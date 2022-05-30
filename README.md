@@ -47,7 +47,7 @@ https://pub.dev/packages/sqflite
 1- Clone the project:
 
 ```
-git clone https://github.com/MCarlomagno/FaceRecognitionAuth.git
+git clone https://github.com/eddy1006/criminal-detector-engage-22.git
 ```
 2- Open the folder:
 
