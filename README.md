@@ -71,3 +71,9 @@ flutter run
 
 To run on iOS you need to have a developer account.
 See here https://stackoverflow.com/a/4952845
+
+Download the apk :- https://drive.google.com/drive/folders/1UmV22mW7j_WoQR9KfniVItj7RHgcSoEN?usp=sharing
+
+The Facial Recognition feature of the project is made following this Github repo and tutorial :-
+https://github.com/MCarlomagno/FaceRecognitionAuth
+https://medium.com/analytics-vidhya/face-recognition-authentication-using-flutter-and-tensorflow-lite-2659d941d56e
