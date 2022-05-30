@@ -58,7 +58,7 @@ class AddState extends State<Add> {
   }
 
   Future<bool> onShot() async {
-    if (faceDetected == null) {
+    if (faceDetected == null) {  //if no face is detected and user presses capture
       showDialog(
         context: context,
         builder: (context) {

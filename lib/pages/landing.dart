@@ -18,12 +18,12 @@ class _LandingState extends State<Landing> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Image(image: AssetImage('assets/criminal.png')),
+            Image(image: AssetImage('assets/criminal.png')),   //banner
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
               child: Column(
                 children: [
-                  Text(
+                  Text(                            //Main app title
                     "CRIMINAL DETECTOR",
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
@@ -32,7 +32,7 @@ class _LandingState extends State<Landing> {
                     height: 20,
                   ),
                   Text(
-                    "An app that helps you unmask impersonating criminals",
+                    "An app that helps you unmask impersonating criminals",   //Some brief info
                     style: TextStyle(
                       fontSize: 16,
                     ),
@@ -48,8 +48,8 @@ class _LandingState extends State<Landing> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (BuildContext context) => MyHomePage(),
-                        settings: RouteSettings(arguments: false),
+                        builder: (BuildContext context) => MyHomePage(),  //taking to the home page
+                        settings: RouteSettings(arguments: false),   //user is not admin so passing value false
                       ),
                     );
                   },
@@ -89,12 +89,12 @@ class _LandingState extends State<Landing> {
                 InkWell(
                   onTap: () {
                     showModalBottomSheet(
-                        isScrollControlled: true,
+                        isScrollControlled: true,  //to make sheet go up with keyboard
                         context: context,
                         builder: (context) {
                           return Padding(
                             padding: MediaQuery.of(context).viewInsets,
-                            child: AdminSheet(),
+                            child: AdminSheet(), //widget to get username and password for admin and validate them
                           );
                         });
                   },

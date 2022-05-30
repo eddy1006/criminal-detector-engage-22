@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final isAdmin = ModalRoute.of(context)!.settings.arguments as bool;
+    final isAdmin = ModalRoute.of(context)!.settings.arguments as bool;  //Checking if user is admin or not
     return Scaffold(
       appBar: AppBar(
         leading: Container(),
@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 20, top: 20),
-            child: PopupMenuButton<String>(
+            child: PopupMenuButton<String>(   // a button to delete all the contents of database
               child: Icon(
                 Icons.more_vert,
                 color: Colors.black,
@@ -77,13 +77,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Image(image: AssetImage('assets/criminal.png')),
+                    Image(image: AssetImage('assets/criminal.png')), //banner
                     Container(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: Column(
                         children: [
                           Text(
-                            "CRIMINAL DETECTOR",
+                            "CRIMINAL DETECTOR",   //Main app title
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
@@ -92,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             height: 20,
                           ),
                           Text(
-                            "Demo application that uses Flutter and tensorflow to implement facial recognition of people having a criminal history",
+                            "Demo application that uses Flutter and tensorflow to implement facial recognition of people having a criminal history", //more info about the app
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (BuildContext context) => Scan(),
+                                builder: (BuildContext context) => Scan(),  //taking to the scan screen
                               ),
                             );
                           },
@@ -146,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         SizedBox(
                           height: 10,
                         ),
-                        isAdmin == true
+                        isAdmin == true   //add button availbale only if the user is admin
                             ? InkWell(
                                 onTap: () {
                                   Navigator.push(

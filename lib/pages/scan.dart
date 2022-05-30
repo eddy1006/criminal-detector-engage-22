@@ -37,7 +37,7 @@ class ScanState extends State<Scan> {
   }
 
   @override
-  void dispose() {
+  void dispose() {    //disposing all the services when the widget tree is destroyed
     _cameraService.dispose();
     _mlService.dispose();
     _faceDetectorService.dispose();
@@ -97,23 +97,23 @@ class ScanState extends State<Scan> {
   Future<void> onTap() async {
     await takePicture();
     if (_faceDetectorService.faceDetected) {
-      Criminal? user = await _mlService.predict();
+      Criminal? criminal = await _mlService.predict();     //Getting the predicted user
       var bottomSheetController = scaffoldKey.currentState!
-          .showBottomSheet((context) => bottomSheet(user: user));
+          .showBottomSheet((context) => bottomSheet(criminal: criminal));  //Passing it to the bottom Sheet function
       bottomSheetController.closed.whenComplete(_reload);
     }
   }
 
   Widget getBodyWidget() {
-    if (_isInitializing) return Center(child: CircularProgressIndicator());
-    if (_isPictureTaken)
+    if (_isInitializing) return Center(child: CircularProgressIndicator()); //if loading 
+    if (_isPictureTaken)    //when user takes picture
       return SinglePicture(imagePath: _cameraService.imagePath!);
-    return CameraDetectionPreview();
+    return CameraDetectionPreview();   //rest other cases
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget header = CameraHeader("SCAN", onBackPressed: _onBackPressed);
+    Widget header = CameraHeader("SCAN", onBackPressed: _onBackPressed); //camera preview 
     Widget body = getBodyWidget();
     Widget? fab;
     if (!_isPictureTaken) fab = CaptureButton(onTap: onTap);
@@ -128,7 +128,7 @@ class ScanState extends State<Scan> {
     );
   }
 
-  bottomSheet({@required Criminal? user}) => user == null
+  bottomSheet({@required Criminal? criminal}) => criminal == null    //displayed if face is not found
       ? Container(
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.all(20),
@@ -137,5 +137,5 @@ class ScanState extends State<Scan> {
             style: TextStyle(fontSize: 20),
           ),
         )
-      : CriminalDetails(user: user);
+      : CriminalDetails(user: criminal);  //If criminal found then we display our widget
 }
