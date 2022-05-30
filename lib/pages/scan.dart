@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:face_net_authentication/locator.dart';
-import 'package:face_net_authentication/pages/models/user.model.dart';
+import 'package:face_net_authentication/pages/models/criminal.model.dart';
 import 'package:face_net_authentication/pages/widgets/capture_button.dart';
 import 'package:face_net_authentication/pages/widgets/camera_detection_preview.dart';
 import 'package:face_net_authentication/pages/widgets/camera_header.dart';
@@ -20,7 +20,8 @@ class Scan extends StatefulWidget {
 }
 
 class ScanState extends State<Scan> {
-  CameraService _cameraService = locator<CameraService>();
+  CameraService _cameraService =
+      locator<CameraService>(); //initializing all the services
   FaceDetectorService _faceDetectorService = locator<FaceDetectorService>();
   MLService _mlService = locator<MLService>();
 
@@ -45,9 +46,9 @@ class ScanState extends State<Scan> {
 
   Future _start() async {
     setState(() => _isInitializing = true);
-    await _cameraService.initialize();
+    await _cameraService.initialize(); //starting the camera service
     setState(() => _isInitializing = false);
-    _frameFaces();
+    _frameFaces(); //capturing faces from image stream
   }
 
   _frameFaces() async {
@@ -65,13 +66,15 @@ class ScanState extends State<Scan> {
     assert(image != null, 'Image is null');
     await _faceDetectorService.detectFacesFromImage(image!);
     if (_faceDetectorService.faceDetected) {
-      _mlService.setCurrentPrediction(image, _faceDetectorService.faces[0]);
+      _mlService.setCurrentPrediction(
+          image, _faceDetectorService.faces[0]); //face detected
     }
     if (mounted) setState(() {});
   }
 
   Future<void> takePicture() async {
     if (_faceDetectorService.faceDetected) {
+      //If face is detected we take picture otherwise show dialog that no face detected
       await _cameraService.takePicture();
       setState(() => _isPictureTaken = true);
     } else {
@@ -94,9 +97,9 @@ class ScanState extends State<Scan> {
   Future<void> onTap() async {
     await takePicture();
     if (_faceDetectorService.faceDetected) {
-      User? user = await _mlService.predict();
+      Criminal? user = await _mlService.predict();
       var bottomSheetController = scaffoldKey.currentState!
-          .showBottomSheet((context) => signInSheet(user: user));
+          .showBottomSheet((context) => bottomSheet(user: user));
       bottomSheetController.closed.whenComplete(_reload);
     }
   }
@@ -125,7 +128,7 @@ class ScanState extends State<Scan> {
     );
   }
 
-  signInSheet({@required User? user}) => user == null
+  bottomSheet({@required Criminal? user}) => user == null
       ? Container(
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.all(20),

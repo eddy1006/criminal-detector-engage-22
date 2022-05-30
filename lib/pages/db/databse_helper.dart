@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:face_net_authentication/pages/models/user.model.dart';
+import 'package:face_net_authentication/pages/models/criminal.model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -9,9 +9,9 @@ class DatabaseHelper {
   static final _databaseName = "MyDatabase.db";
   static final _databaseVersion = 5;
 
-  static final table = 'users';
+  static final table = 'criminals';
   static final columnId = 'id';
-  static final columnUser = 'user';
+  static final columnName = 'name';
   static final columnAge = 'age';
   static final columnIdentification = 'identification';
   static final columnThreat = 'threat';
@@ -38,7 +38,7 @@ class DatabaseHelper {
     await db.execute('''
           CREATE TABLE $table (
             $columnId INTEGER PRIMARY KEY,
-            $columnUser TEXT NOT NULL,
+            $columnName TEXT NOT NULL,
             $columnAge TEXT NOT NULL,
             $columnIdentification TEXT NOT NULL,
             $columnThreat TEXT NOT NULL,
@@ -47,15 +47,15 @@ class DatabaseHelper {
           ''');
   }
 
-  Future<int> insert(User user) async {
+  Future<int> insert(Criminal user) async {
     Database db = await instance.database;
     return await db.insert(table, user.toMap());
   }
 
-  Future<List<User>> queryAllUsers() async {
+  Future<List<Criminal>> queryAllUsers() async {
     Database db = await instance.database;
     List<Map<String, dynamic>> users = await db.query(table);
-    return users.map((u) => User.fromMap(u)).toList();
+    return users.map((u) => Criminal.fromMap(u)).toList();
   }
 
   Future<int> deleteAll() async {

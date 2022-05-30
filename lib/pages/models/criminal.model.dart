@@ -1,33 +1,33 @@
 import 'dart:convert';
 
-class User {
-  String user;
+class Criminal {
+  String name;
   String age;
   String identification;
   String threat;
   List modelData;
 
-  User({
-    required this.user,
+  Criminal({
+    required this.name,
     required this.age,
     required this.identification,
     required this.threat,
     required this.modelData,
   });
 
-  static User fromMap(Map<String, dynamic> user) {
-    return new User(
-      user: user['user'],
-      age: user['age'],
-      identification: user['identification'],
-      threat: user['threat'],
-      modelData: jsonDecode(user['model_data']),
+  static Criminal fromMap(Map<String, dynamic> criminal) {
+    return new Criminal(
+      name: criminal['name'],
+      age: criminal['age'],
+      identification: criminal['identification'],
+      threat: criminal['threat'],
+      modelData: jsonDecode(criminal['model_data']),
     );
   }
 
   toMap() {
     return {
-      'user': user,
+      'name': name,
       'age': age,
       'identification': identification,
       'threat': threat,

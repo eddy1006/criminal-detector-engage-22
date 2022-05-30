@@ -3,7 +3,7 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:camera/camera.dart';
 import 'package:face_net_authentication/pages/db/databse_helper.dart';
-import 'package:face_net_authentication/pages/models/user.model.dart';
+import 'package:face_net_authentication/pages/models/criminal.model.dart';
 import 'package:face_net_authentication/services/image_converter.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
@@ -60,7 +60,7 @@ class MLService {
     this._predictedData = List.from(output);
   }
 
-  Future<User?> predict() async {
+  Future<Criminal?> predict() async {
     return _searchResult(this._predictedData);
   }
 
@@ -104,15 +104,15 @@ class MLService {
     return convertedBytes.buffer.asFloat32List();
   }
 
-  Future<User?> _searchResult(List predictedData) async {
+  Future<Criminal?> _searchResult(List predictedData) async {
     DatabaseHelper _dbHelper = DatabaseHelper.instance;
 
-    List<User> users = await _dbHelper.queryAllUsers();
+    List<Criminal> users = await _dbHelper.queryAllUsers();
     double minDist = 999;
     double currDist = 0.0;
-    User? predictedResult;
+    Criminal? predictedResult;
 
-    for (User u in users) {
+    for (Criminal u in users) {
       currDist = _euclideanDistance(u.modelData, predictedData);
       if (currDist <= threshold && currDist < minDist) {
         minDist = currDist;

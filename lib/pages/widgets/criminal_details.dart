@@ -1,5 +1,5 @@
 import 'package:face_net_authentication/locator.dart';
-import 'package:face_net_authentication/pages/models/user.model.dart';
+import 'package:face_net_authentication/pages/models/criminal.model.dart';
 import 'package:face_net_authentication/pages/widgets/app_button.dart';
 import 'package:face_net_authentication/pages/widgets/app_text_field.dart';
 import 'package:face_net_authentication/services/camera.service.dart';
@@ -8,7 +8,7 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 class CriminalDetails extends StatelessWidget {
   CriminalDetails({Key? key, required this.user}) : super(key: key);
-  final User user;
+  final Criminal user;
 
   _callNumber() async {
     const number = '08592119XXXX'; //set the number here
@@ -25,7 +25,7 @@ class CriminalDetails extends StatelessWidget {
         children: [
           Container(
             child: Text(
-              'Name : ' + user.user + '.',
+              'Name : ' + user.name + '.',
               style: TextStyle(fontSize: 20),
             ),
           ),

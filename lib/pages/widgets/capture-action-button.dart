@@ -1,6 +1,6 @@
 import 'package:face_net_authentication/locator.dart';
 import 'package:face_net_authentication/pages/db/databse_helper.dart';
-import 'package:face_net_authentication/pages/models/user.model.dart';
+import 'package:face_net_authentication/pages/models/criminal.model.dart';
 import 'package:face_net_authentication/pages/widgets/app_button.dart';
 import 'package:face_net_authentication/services/camera.service.dart';
 import 'package:face_net_authentication/services/ml_service.dart';
@@ -36,17 +36,17 @@ class _CaptureActionButtonState extends State<CaptureActionButton> {
   final TextEditingController _threatTextEditingController =
       TextEditingController(text: '');
 
-  User? predictedUser;
+  Criminal? predictedUser;
 
   Future _signUp(context) async {
     DatabaseHelper _databaseHelper = DatabaseHelper.instance;
     List predictedData = _mlService.predictedData;
-    String user = _userTextEditingController.text;
+    String name = _userTextEditingController.text;
     String age = _ageTextEditingController.text;
     String identification = _identificationTextEditingController.text;
     String threat = _threatTextEditingController.text;
-    User userToSave = User(
-      user: user,
+    Criminal userToSave = Criminal(
+      name: name,
       age: age,
       identification: identification,
       threat: threat,
@@ -61,8 +61,8 @@ class _CaptureActionButtonState extends State<CaptureActionButton> {
             settings: RouteSettings(arguments: true)));
   }
 
-  Future<User?> _predictUser() async {
-    User? userAndPass = await _mlService.predict();
+  Future<Criminal?> _predictUser() async {
+    Criminal? userAndPass = await _mlService.predict();
     return userAndPass;
   }
 
@@ -133,7 +133,7 @@ class _CaptureActionButtonState extends State<CaptureActionButton> {
           widget.isLogin && predictedUser != null
               ? Container(
                   child: Text(
-                    'Welcome back, ' + predictedUser!.user + '.',
+                    'Welcome back, ' + predictedUser!.name + '.',
                     style: TextStyle(fontSize: 20),
                   ),
                 )
